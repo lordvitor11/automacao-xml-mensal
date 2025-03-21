@@ -4,6 +4,7 @@ import "../css/FileUpload.css";
 
 import Button from "../Components/Button";
 import HomeButton from "../Components/HomeButton";
+import { useNavigate } from "react-router-dom";
 
 const FileUpload = () => {
   const [files, setFiles] = useState([]);
@@ -63,6 +64,7 @@ const FileUpload = () => {
       if (response.ok) {
         setUploadStatus("Arquivos enviados com sucesso!");
         setFiles([]);
+        useNavigate('/resumo');
       } else {
         setUploadStatus("Erro ao enviar os arquivos.");
       }

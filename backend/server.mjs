@@ -89,7 +89,6 @@ app.post('/api/search', async (req, res) => {
     .then(response => {
       console.log(response);
       
-      // Se a resposta for um objeto único, transforma em array
       const result = Array.isArray(response) ? response : [response];
       
       res.status(200).json({ array: result });
@@ -107,6 +106,69 @@ app.post("/api/upload", upload.array("files"), (req, res) => {
   });
 });
 
+// Rota para listar os arquivos de um usuário
+app.get("/api/files/:userId", (req, res) => {
+  const userId = req.params.userId;
+  const userFolder = path.join(UPLOADS_FOLDER, userId);
+
+  if (!fs.existsSync(userFolder)) {
+    return res.json({ files: [] });
+  }
+
+  const files = fs.readdirSync(userFolder).map((file) => ({
+    name: file,
+    path: `/uploads/${userId}/${file}`,
+  }));
+
+  res.json({ files });
+});
+
+app.delete("/api/files/:userId/:fileName", (req, res) => {
+  const { userId, fileName } = req.params;
+  const filePath = path.join(UPLOADS_FOLDER, userId, fileName);
+
+  if (fs.existsSync(filePath)) {
+    fs.unlinkSync(filePath);
+    return res.json({ message: "Arquivo removido com sucesso!" });
+  }
+
+  res.status(404).json({ message: "Arquivo não encontrado." });
+});
+
+// Rota para envio de e-mail
+app.post("/api/send-email", async (req, res) => {
+  const { userEmail, userId, files } = req.body;
+  const userFolder = path.join(UPLOADS_FOLDER, userId);
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "seuemail@gmail.com",
+      pass: "suasenha", // Use variáveis de ambiente para segurança!
+    },
+  });
+
+  const mailOptions = {
+    from: "seuemail@gmail.com",
+    to: userEmail,
+    subject: "Seus arquivos foram enviados!",
+    text: "Segue os arquivos anexados.",
+    attachments: files.map((file) => ({
+      filename: file.name,
+      path: path.join(userFolder, file.name),
+    })),
+  };
+
+  try {
+    await transporter.sendMail(mailOptions);
+    res.json({ message: "E-mail enviado com sucesso!" });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Erro ao enviar e-mail." });
+  }
+});
+
 app.listen(5000, () => {
   console.log('Backend rodando na porta 5000');
 });
+

@@ -10,6 +10,7 @@ import NotFoundPage from './Pages/NotFound';
 import ContabilidadePage from './Pages/Contabilidade';
 import ClientePage from './Pages/Cliente';
 import HistoricoPage from './Pages/Historico';
+import SummaryPage from './Pages/EnviarNext';
 
 
 function App() {
@@ -22,6 +23,8 @@ function App() {
         <Route path='/contabilidade' element={<ContabilidadePage />} />
         <Route path='/cliente' element={<ClientePage />} />
         <Route path='/historico' element={<HistoricoPage />} />
+        <Route path="/resumo" element={<SummaryPage />} />
+        <Route path="/sucesso" element={<h2>E-mail enviado com sucesso!</h2>} />
         <Route path="*" element={<Navigate to="/notfound" />} />
       </Routes>
     </>
