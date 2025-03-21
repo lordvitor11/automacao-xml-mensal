@@ -2,8 +2,8 @@
     padding: 10px;
     border-radius: 5px;
     border: none;
-    background-color: #0fa8a8;
-    border: solid 2px #0fa8a8;
+    background-color: #1CB2EF;
+    border: solid 2px #1CB2EF;
     color: #fff;
     width: 300px;
     cursor: pointer;
@@ -20,4 +20,13 @@
     background-color: gray;
     border: 2px solid gray;
     cursor: auto;
+}
+
+.button.style {
+    width: 256px;
+    height: 256px;
+}
+
+.button.style:hover {
+    transform: translateY(-10px) !important;
 }

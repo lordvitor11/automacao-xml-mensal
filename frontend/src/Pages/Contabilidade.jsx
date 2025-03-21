@@ -71,6 +71,8 @@ const Contabilidade = () => {
 
     return (
         <section className='center'>
+            <h1>Cadastro de Contabilidade</h1>
+
             {isVisible && (
                 <Notification titulo={status} descricao={mensagem} />
             )}

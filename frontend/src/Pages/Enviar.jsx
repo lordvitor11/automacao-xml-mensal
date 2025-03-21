@@ -5,7 +5,7 @@ import FileUpload from '../Components/FileUpload';
 function Enviar() {
   return (
     <section className='center'>
-      <h2>Bem-vindo à Página de Enviar</h2>
+      <h2>Enviar XML</h2>
 
       <FileUpload />
     </section>

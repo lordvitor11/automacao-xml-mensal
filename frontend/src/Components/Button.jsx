@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from 'react-router-dom'; 
 import "../css/Button.css";
 
-function Button({ texto, tipo, funcId, disabled, onClick }) {
+function Button({ texto, tipo, funcId, disabled, onClick, imgUrl, style }) {
   const navigate = useNavigate();
 
   const redirect = (event) => {
@@ -28,15 +28,22 @@ function Button({ texto, tipo, funcId, disabled, onClick }) {
   const buttonType = tipo || 'button';
   const functionId = funcId || 'button';
   const buttonDisabled = disabled || false;
+  const backgroundImage = imgUrl || null;
+  const hasStyle = style || false;
 
   return (
     <input 
-      className={`button ${disabled ? 'disabled' : ''}`} 
+      className={`button ${disabled ? 'disabled' : ''} ${style ? 'style' : ''}`} 
       id={functionId} 
       onClick={handleClick} 
       type={buttonType} 
       value={texto} 
       disabled={buttonDisabled} 
+      style={{ 
+        backgroundImage: `url(${backgroundImage})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
     />
   );
 }

@@ -38,18 +38,17 @@ h1 {
 
 .options {
   display: flex;
-  flex-direction: column;
-  /* justify-content: space-between; */
+  justify-content: space-between;
   align-items: center;
 }
 
 .options input {
-  margin-bottom: 10px;
+  /* margin-bottom: 10px; */
 }
 
-.options input:last-child {
+/* .options input:last-child {
   margin-bottom: 0;
-}
+} */
 
 /* Reset de margens e paddings */
 * {
